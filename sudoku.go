@@ -32,10 +32,21 @@ func checkCol (col int, num int) bool {
 }
 
 func checkSquare (row int, col int, num int) bool {
-	rowStart :=
+	rowStart := row - (row % 3)
+	colStart := col - (col % 3)
+
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			if num == board[rowStart+i][colStart+j] {
+				return false
+			}
+		}
+	}
+	return true
 }
 
 func check(row int, col int, num int) bool {
+	return checkRow(row,num) && checkCol(col,num) && checkSquare(row,col,num)
 }
 
 
