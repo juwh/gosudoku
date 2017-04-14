@@ -100,6 +100,24 @@ func solve(row int, col int) bool {
 	return false
 }
 
+func printBoard () {
+	var result= ""
+	for i := 0; i < 9; i++ {
+		if i%3 == 0 && i != 0 {
+			result = result + "------+-------+------\n"
+		}
+		for j := 0; j < 9; j++ {
+			if j%3 == 0 && j != 0 {
+				result = result + "|"
+			}
+			stringNum := strconv.Itoa(board[i][j])
+			result = result + stringNum + " "
+		}
+		result = result + "\n"
+	}
+	fmt.Println(result)
+}
+
 func main() {
 	readFile(filePath)
 }
