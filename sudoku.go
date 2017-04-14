@@ -102,13 +102,13 @@ func solve(row int, col int) bool {
 
 func printBoard () {
 	var result= ""
-	for i := 0; i < 9; i++ {
+	for i := 0; i < max_dim; i++ {
 		if i%3 == 0 && i != 0 {
 			result = result + "------+-------+------\n"
 		}
-		for j := 0; j < 9; j++ {
+		for j := 0; j < max_dim; j++ {
 			if j%3 == 0 && j != 0 {
-				result = result + "|"
+				result = result + "| "
 			}
 			stringNum := strconv.Itoa(board[i][j])
 			result = result + stringNum + " "
