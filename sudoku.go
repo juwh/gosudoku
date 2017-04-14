@@ -61,11 +61,11 @@ func checkCol (col int, num int) bool {
 }
 
 func checkSquare (row int, col int, num int) bool {
-	rowStart := row - (row % 3)
-	colStart := col - (col % 3)
+	rowStart := row - (row % box_dim)
+	colStart := col - (col % box_dim)
 
-	for i := 0; i < 3; i++ {
-		for j := 0; j < 3; j++ {
+	for i := 0; i < box_dim; i++ {
+		for j := 0; j < box_dim; j++ {
 			if num == board[rowStart+i][colStart+j] {
 				return false
 			}
@@ -103,11 +103,11 @@ func solve(row int, col int) bool {
 func printBoard () {
 	var result= ""
 	for i := 0; i < max_dim; i++ {
-		if i%3 == 0 && i != 0 {
+		if i%box_dim == 0 && i != 0 {
 			result = result + "------+-------+------\n"
 		}
 		for j := 0; j < max_dim; j++ {
-			if j%3 == 0 && j != 0 {
+			if j%box_dim == 0 && j != 0 {
 				result = result + "| "
 			}
 			stringNum := strconv.Itoa(board[i][j])
