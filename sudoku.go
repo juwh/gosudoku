@@ -1,3 +1,10 @@
+//Name: William Ju and Nicole Kim
+//Email: william.h.ju@vanderbilt.edu and nicole.e.kim@vanderbilt.edu
+//VUnet ID: juwh and kimne
+//Class: CS3270
+//Date: 4/13/17
+//Sudoku solver in Golang
+
 package main
 
 import (
@@ -9,11 +16,13 @@ import (
 	"strconv"
 )
 
-const max_dim = 9
-const box_dim = 3
+const max_dim = 9 //Constant for max dimensions of puzzle
+const box_dim = 3 //Constant for max dimensions of box
 const filePath = "sudoku-test1.txt"
-var board[9][9]int
+var board[max_dim][max_dim]int //2D array that holds board
 
+//Loads values from specified file into board
+//Assumes the input file has the specified format (empty spaces are represented by 0's)
 func readFile (file string) {
 	rowNum := 0
 	boardFile, err := os.Open(file)
@@ -42,6 +51,7 @@ func readFile (file string) {
 	}
 }
 
+//Checks if the current assignment of a spot conflicts with any other existing item in its row
 func checkRow (row int, num int) bool {
 	for i:=0; i < 9; i++ {
 		if board[row][i] == num {
@@ -51,6 +61,7 @@ func checkRow (row int, num int) bool {
 	return true
 }
 
+//Checks if the current assignment of a spot conflicts with any other existing item in its col
 func checkCol (col int, num int) bool {
 	for i:=0; i < 9; i++ {
 		if board[i][col] == num {
@@ -60,6 +71,7 @@ func checkCol (col int, num int) bool {
 	return true
 }
 
+//Checks if the current assignment of a spot conflicts with any other existing item in its 3x3 square
 func checkSquare (row int, col int, num int) bool {
 	rowStart := row - (row % box_dim)
 	colStart := col - (col % box_dim)
@@ -74,10 +86,13 @@ func checkSquare (row int, col int, num int) bool {
 	return true
 }
 
+//Combines all 3 check (row, column, square) to make sure there are no conflicts
 func check(row int, col int, num int) bool {
 	return checkRow(row,num) && checkCol(col,num) && checkSquare(row,col,num)
 }
 
+//The entry point for the solver. Returns true if a solution was found, otherwise returns false.
+//Parameters are the row and column that a value is currently being placed in
 func solve(row int, col int) bool {
 	if row == max_dim {
 		return true
@@ -100,6 +115,7 @@ func solve(row int, col int) bool {
 	return false
 }
 
+//Prints the board to the screen in a nicely formatted manner
 func printBoard (board[9][9]int) {
 	var result= ""
 	for i := 0; i < max_dim; i++ {
@@ -120,8 +136,12 @@ func printBoard (board[9][9]int) {
 
 func main() {
 	readFile(filePath)
+	fmt.Println("Here is the initial board:")
 	printBoard(board)
-	fmt.Println()
-	solve(0,0)
-	printBoard(board)
+	if solve(0,0) {
+		fmt.Println("Here is the solved board:")
+		printBoard(board)
+	} else {
+		fmt.Println("No solution.")
+	}
 }
