@@ -78,6 +78,28 @@ func check(row int, col int, num int) bool {
 	return checkRow(row,num) && checkCol(col,num) && checkSquare(row,col,num)
 }
 
+func solve(row int, col int) bool {
+	if row == 9 {
+		return true
+	}
+	if col == 9 {
+		return solve(row+1,0)
+	}
+	if board[row][col] != 0 {
+		return solve(row,col+1)
+	}
+	for num := 1; num <= 9; num++ {
+		if check(row, col, num) {
+			board[row][col] = num
+		}
+		if solve(row,col+1) {
+			return true
+		}
+	}
+	board[row][col] = 0
+	return false
+}
+
 func main() {
 	readFile(filePath)
 }
