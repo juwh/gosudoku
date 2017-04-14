@@ -14,16 +14,16 @@ const box_dim = 3
 const filePath = "sudoku-test1.txt"
 var board[9][9]int
 
-func readFile (filePath string) {
-	file, err := os.Open(filePath)
+func readFile (file string) {
+	rowNum := 0
+	boardFile, err := os.Open(file)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file.Close()
+	defer boardFile.Close()
 
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(boardFile)
 	for scanner.Scan() {
-		rowNum := 0
 		row := strings.Split(scanner.Text(), " ")
 		// index and value
 		for i, v := range row {
@@ -79,16 +79,16 @@ func check(row int, col int, num int) bool {
 }
 
 func solve(row int, col int) bool {
-	if row == 9 {
+	if row == max_dim {
 		return true
 	}
-	if col == 9 {
+	if col == max_dim {
 		return solve(row+1,0)
 	}
 	if board[row][col] != 0 {
 		return solve(row,col+1)
 	}
-	for num := 1; num <= 9; num++ {
+	for num := 1; num <= max_dim; num++ {
 		if check(row, col, num) {
 			board[row][col] = num
 		}
@@ -120,4 +120,8 @@ func printBoard () {
 
 func main() {
 	readFile(filePath)
+	printBoard()
+	fmt.Println()
+	fmt.Println(solve(0,0))
+	printBoard()
 }
