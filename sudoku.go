@@ -91,16 +91,16 @@ func solve(row int, col int) bool {
 	for num := 1; num <= max_dim; num++ {
 		if check(row, col, num) {
 			board[row][col] = num
-		}
-		if solve(row,col+1) {
-			return true
+			if solve(row,col+1) {
+				return true
+			}
 		}
 	}
 	board[row][col] = 0
 	return false
 }
 
-func printBoard () {
+func printBoard (board[9][9]int) {
 	var result= ""
 	for i := 0; i < max_dim; i++ {
 		if i%box_dim == 0 && i != 0 {
@@ -120,8 +120,8 @@ func printBoard () {
 
 func main() {
 	readFile(filePath)
-	printBoard()
+	printBoard(board)
 	fmt.Println()
-	fmt.Println(solve(0,0))
-	printBoard()
+	solve(0,0)
+	printBoard(board)
 }
