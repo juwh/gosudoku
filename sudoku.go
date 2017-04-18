@@ -3,6 +3,7 @@
 //VUnet ID: juwh and kimne
 //Class: CS3270
 //Date: 4/13/17
+//Academic honesty statement: This code was work on as a collaboration by Will and Nicole and is a result of only our own work.
 //Sudoku solver in Golang
 
 package main
@@ -18,7 +19,7 @@ import (
 
 const max_dim = 9 //Constant for max dimensions of puzzle
 const box_dim = 3 //Constant for max dimensions of box
-const filePath = "sudoku-test1.txt"
+const filePath = "sudoku-test1.txt" //specifies file path of file to solve
 var board[max_dim][max_dim]int //2D array that holds board
 
 //Loads values from specified file into board
@@ -134,6 +135,7 @@ func printBoard (board[9][9]int) {
 	fmt.Println(result)
 }
 
+//Main function that calls other methods to print board to console and run solver.
 func main() {
 	readFile(filePath)
 	fmt.Println("Here is the initial board:")
